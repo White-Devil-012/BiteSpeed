@@ -4,19 +4,16 @@ import helmet from "helmet";
 import dotenv from "dotenv";
 import identifyRoutes from "./routes/identify";
 
-// Load environment variables
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(helmet()); // Security headers
-app.use(cors()); // Enable CORS
-app.use(express.json()); // Parse JSON bodies
-app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+app.use(helmet());
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Request timeout middleware (10 seconds)
 app.use((req, res, next) => {
   const timeout = setTimeout(() => {
     if (!res.headersSent) {
@@ -35,16 +32,13 @@ app.use((req, res, next) => {
   next();
 });
 
-// Request logging middleware
 app.use((req, res, next) => {
   console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
   next();
 });
 
-// Routes
 app.use("/", identifyRoutes);
 
-// Root endpoint
 app.get("/", (req, res) => {
   res.json({
     message: "Bitespeed Identity Reconciliation Service",
@@ -56,7 +50,6 @@ app.get("/", (req, res) => {
   });
 });
 
-// 404 handler
 app.use("*", (req, res) => {
   res.status(404).json({
     error: "Endpoint not found",
@@ -64,7 +57,6 @@ app.use("*", (req, res) => {
   });
 });
 
-// Global error handler
 app.use(
   (
     err: Error,
@@ -79,7 +71,6 @@ app.use(
   }
 );
 
-// Start server
 app.listen(PORT, () => {
   console.log(
     `🚀 Bitespeed Identity Reconciliation Service running on port ${PORT}`
@@ -88,7 +79,6 @@ app.listen(PORT, () => {
   console.log(`🔍 Identify endpoint: http://localhost:${PORT}/identify`);
 });
 
-// Graceful shutdown
 process.on("SIGINT", () => {
   console.log("\n🛑 Received SIGINT. Shutting down gracefully...");
   process.exit(0);

@@ -5,11 +5,9 @@ import { IdentifyRequest } from "../types/Contact";
 
 const router = Router();
 
-// Initialize database and service
 const database = new Database(process.env.DATABASE_PATH);
 const identityService = new IdentityService(database);
 
-// Validation middleware
 const validateIdentifyRequest = (
   req: Request,
   res: Response,
@@ -17,21 +15,18 @@ const validateIdentifyRequest = (
 ) => {
   const { email, phoneNumber } = req.body as IdentifyRequest;
 
-  // At least one of email or phoneNumber must be provided
   if (!email && !phoneNumber) {
     return res.status(400).json({
       error: "At least one of email or phoneNumber must be provided",
     });
   }
 
-  // Validate email format if provided
   if (email && typeof email !== "string") {
     return res.status(400).json({
       error: "Email must be a string",
     });
   }
 
-  // Validate phoneNumber format if provided
   if (phoneNumber && typeof phoneNumber !== "string") {
     return res.status(400).json({
       error: "Phone number must be a string",
@@ -59,7 +54,6 @@ router.post(
   }
 );
 
-// Health check endpoint
 router.get("/health", (req: Request, res: Response) => {
   res.status(200).json({
     status: "OK",

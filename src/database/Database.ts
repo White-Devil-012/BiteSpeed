@@ -74,7 +74,6 @@ export class Database {
     if (contactIds.length === 0) return [];
 
     return new Promise((resolve, reject) => {
-      // Simplified query - just get all contacts that are linked to any of the input contacts
       const placeholders = contactIds.map(() => "?").join(",");
       const query = `
         SELECT DISTINCT * FROM contacts 
@@ -86,7 +85,6 @@ export class Database {
         ORDER BY createdAt ASC
       `;
 
-      // Flatten the parameters for the query (3 sets of contactIds)
       const params = [...contactIds, ...contactIds, ...contactIds];
 
       this.db.all(query, params, (err, rows: any[]) => {
@@ -117,7 +115,7 @@ export class Database {
         VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
       `;
 
-      const db = this.db; // Store reference to avoid context issues
+      const db = this.db;
 
       db.run(
         query,
@@ -126,7 +124,6 @@ export class Database {
           if (err) {
             reject(err);
           } else {
-            // Fetch the created contact
             const selectQuery = "SELECT * FROM contacts WHERE id = ?";
             const insertId = this.lastID;
 

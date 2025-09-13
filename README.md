@@ -5,7 +5,9 @@ A Node.js/TypeScript web service that implements identity reconciliation for cus
 ## 🚀 Live Demo
 
 **Local Development:** `http://localhost:3000/identify`
-**Hosted Endpoint:** Ready for deployment to Render.com, Heroku, or any Node.js hosting platform
+**Live Production API:** `https://bitespeed-ryzh.onrender.com/identify`
+
+✅ **Successfully Deployed on Render.com**
 
 ## 📋 Table of Contents
 
