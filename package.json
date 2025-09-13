@@ -9,7 +9,12 @@
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "test": "jest"
   },
-  "keywords": ["bitespeed", "identity", "reconciliation", "contact"],
+  "keywords": [
+    "bitespeed",
+    "identity",
+    "reconciliation",
+    "contact"
+  ],
   "author": "Piyush Kumar",
   "license": "MIT",
   "dependencies": {
@@ -28,5 +33,9 @@
     "@types/jest": "^29.5.3",
     "jest": "^29.6.1",
     "ts-jest": "^29.1.1"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   }
 }
